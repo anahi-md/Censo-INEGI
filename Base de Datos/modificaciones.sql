@@ -1,0 +1,39 @@
+-- HABITANTES
+ALTER TABLE habitantes
+ADD fecha_nac DATE,
+ADD curp VARCHAR(18),
+ADD created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+ADD updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ADD estatus BOOLEAN DEFAULT TRUE;
+
+ALTER TABLE habitantes
+ADD UNIQUE (curp);
+
+ALTER TABLE habitantes
+DROP COLUMN sexo,
+ADD id_sexo INT,
+ADD FOREIGN KEY (id_sexo) REFERENCES sexos(id_sexo);
+
+-- USUARIOS
+ALTER TABLE usuarios
+CHANGE fecha_creacion created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+ADD updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+-- ACTIVIDADES ECONÓMICAS
+ALTER TABLE actividadeseconomicas
+ADD descripcion VARCHAR(255);
+
+-- VIVIENDAS
+ALTER TABLE viviendas
+CHANGE fecha_registro created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+CHANGE numero_exterior num_exterior VARCHAR(10),
+CHANGE numero_interior num_interior VARCHAR(10),
+ADD num_cuartos INT,
+ADD num_banios INT,
+ADD material_predominante VARCHAR(100),
+ADD servicios_basicos VARCHAR(255),
+ADD observaciones TEXT,
+ADD estatus BOOLEAN DEFAULT TRUE,
+ADD id_municipio INT,
+ADD updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ADD FOREIGN KEY (id_municipio) REFERENCES municipios(id_municipio);
